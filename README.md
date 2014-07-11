@@ -1,5 +1,6 @@
 Graille-Labs - Screeper Project - Server bundle
 =====================
+--- NOT AVAILABLE ---
 
 The Sever bundle add support of Minecraft Server in symfony 2.
 

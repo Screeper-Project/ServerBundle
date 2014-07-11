@@ -35,7 +35,7 @@ class ServerService
     protected function checkConfig($server, $servers_list)
     {
         if (!isset($servers_list[$server]))
-            throw new \InvalidArgumentException('JsonAPIBundle - le serveur "'.$server.'" ne possède aucune configuration dans app/config/config.yml');
+            throw new \InvalidArgumentException('Screeper - ServerBundle - le serveur "'.$server.'" ne possède aucune configuration dans app/config/config.yml');
     }
 
     protected function getConfig($server_name) // Récupération de la configuration d'un serveur
@@ -57,7 +57,7 @@ class ServerService
                 $server_config = $config; // Enfin on renvoi la nouvelle config
             }
             else
-                throw new \InvalidArgumentException('JsonAPIBundle - le serveur "'.$server_name.'" est mal configuré');
+                throw new \InvalidArgumentException('Screeper - ServerBundle - JsonAPIBundle - le serveur "'.$server_name.'" est mal configuré');
         else {
             if(!isset($server_config['port']))
                 $server_config['port'] = 20059;
