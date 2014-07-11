@@ -26,18 +26,31 @@ class ServerService
         $this->container = $container;
     }
 
-    // Récupération des serveurs
+    /**
+     * Récupération des serveurs
+     * @return mixed
+     */
     protected function getServers()
     {
-        return $this->container->getParameter(JsonApiService::SERVERS_PARAMETER_NAME);
+        return $this->container->getParameter(ServerService::SERVERS_PARAMETER_NAME);
     }
 
+    /**
+     * @param $server
+     * @param $servers_list
+     * @throws \InvalidArgumentException
+     */
     protected function checkConfig($server, $servers_list)
     {
         if (!isset($servers_list[$server]))
             throw new \InvalidArgumentException('Screeper - ServerBundle - le serveur "'.$server.'" ne possède aucune configuration dans app/config/config.yml');
     }
 
+    /**
+     * @param $server_name
+     * @return Server
+     * @throws \InvalidArgumentException
+     */
     protected function getConfig($server_name) // Récupération de la configuration d'un serveur
     {
         $servers_list = $this->getServers();
@@ -76,6 +89,10 @@ class ServerService
         return $server;
     }
 
+    /**
+     * @param $server_name
+     * @return Server
+     */
     public function getServer($server_name)
     {
         return $this->getConfig($server_name);

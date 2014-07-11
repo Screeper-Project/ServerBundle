@@ -1,5 +1,5 @@
 {
-    "name": "graille-labs/screeper-project/jsonapi-bundle",
+    "name": "graille-labs/screeper-project/server-bundle",
     "type": "symfony-bundle",
     "description": "Minecraft Server support in Symfony 2",
     "keywords": ["minecraft","server management"],
