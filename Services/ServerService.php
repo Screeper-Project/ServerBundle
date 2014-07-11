@@ -51,7 +51,7 @@ class ServerService
      * @return Server
      * @throws \InvalidArgumentException
      */
-    protected function getConfig($server_name) // Récupération de la configuration d'un serveur
+    protected function getConfig($server_name = ServerService::DEFAULT_SERVER_NAME) // Récupération de la configuration d'un serveur
     {
         $servers_list = $this->getServers();
 
@@ -78,6 +78,15 @@ class ServerService
                 $server_config['salt'] = "";
         }
 
+        return $server_config;
+    }
+
+    /**
+     * @param $server_config
+     * @return Server
+     */
+    protected function convertToServer($server_config)
+    {
         // Création de l'objet serveur
         $server = new Server();
         $server->setConfigIp($server_config['ip'])
@@ -88,13 +97,12 @@ class ServerService
 
         return $server;
     }
-
     /**
      * @param $server_name
      * @return Server
      */
-    public function getServer($server_name)
+    public function getServer($server_name = ServerService::DEFAULT_SERVER_NAME)
     {
-        return $this->getConfig($server_name);
+        return $this->convertToServer($this->getConfig($server_name));
     }
 }
