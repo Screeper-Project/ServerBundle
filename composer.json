@@ -22,6 +22,6 @@
     "autoload": {
         "psr-0": { "Screeper\\ServerBundle": "" }
     },
-    "target-dir": "GrailleLabs/ServerBundle",
+    "target-dir": "Screeper/ServerBundle",
     "minimum-stability": "dev"
 }
