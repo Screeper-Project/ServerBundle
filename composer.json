@@ -1,0 +1,27 @@
+{
+    "name": "graille-labs/screeper-project/jsonapi-bundle",
+    "type": "symfony-bundle",
+    "description": "Minecraft Server support in Symfony 2",
+    "keywords": ["minecraft","server management"],
+    "homepage": "http://github.com/Graille",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Graille",
+            "email": "contact@astres3000.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/framework-bundle": ">=2.1",
+        "twig/twig": "*",
+        "doctrine/doctrine-bundle": "*"
+    },
+    "autoload": {
+        "psr-0": { "Screeper\\ServerBundle": "" }
+    },
+    "target-dir": "GrailleLabs/Screeper/ServerBundle",
+    "minimum-stability": "dev"
+}
