@@ -1,6 +1,8 @@
 Graille-Labs - Screeper Project - Server bundle
 =====================
-**NOT AVAILABLE**
+**DEVELOPMENT IN PROGRESS**
+
+![Screeper logo](http://img4.hostingpics.net/pics/743708Sanstitre7.png)
 
 The Server bundle add support of Minecraft Server in symfony 2.
 
@@ -9,7 +11,7 @@ Installation
 Add :
 
 ```
-"graille-labs/screeper/server-bundle": "dev-master"
+"graille-labs/screeper-server-bundle": "dev-master"
 ```
 
 in your composer.json
@@ -34,13 +36,11 @@ screeper_server:
             password: #password
             port: #port
             ip: #ip
-            salt: ~
         serv1:
             login: #username
             password: #password
             port: #port
             ip: #ip
-            salt: ~
 ```
 
 N.B : Port and Salt are optionnal, the port by default is 20059
@@ -57,7 +57,6 @@ screeper_server:
             password: #password
             port: #port
             ip: #ip
-            salt: ~
 ```
 
 You can erase the configuration of a pattern :
@@ -71,12 +70,11 @@ screeper_server:
             password: #password
             port: #port
             ip: #ip
-            salt: ~
+            salt: ~ ## If a salt is necessary
         serv2:
             pattern: serv1
             ip: #new_ip
 ```
-
 (In this example, the informations are the same, but the ip isn't.)
 
 Usage
