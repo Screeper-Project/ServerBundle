@@ -36,6 +36,14 @@ class ServerService
     }
 
     /**
+     * @return array
+     */
+    public function getServersName()
+    {
+        return array_keys($this->getServers());
+    }
+
+    /**
      * @param $server
      * @param $servers_list
      * @throws \InvalidArgumentException

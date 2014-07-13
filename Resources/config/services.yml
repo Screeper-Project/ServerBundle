@@ -2,7 +2,7 @@ parameters:
   screeper.server.parameters.servers: ~
 
 services:
-    screeper.server.services.servers:
+    screeper.server.services.server:
         class: Screeper\ServerBundle\Services\ServerService
         arguments:
             - '@service_container'

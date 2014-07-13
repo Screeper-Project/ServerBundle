@@ -5,15 +5,15 @@ class Server
 {
     protected $name = '';
 
-    protected $config_login = '';
+    protected $configLogin = '';
 
-    protected $config_password = '';
+    protected $configPassword = '';
 
-    protected $config_ip = '';
+    protected $configIp = '';
 
-    protected $config_salt = '';
+    protected $configSalt = '';
 
-    protected $config_port = '';
+    protected $configPort = '';
 
     public function getName()
     {
@@ -29,60 +29,59 @@ class Server
 
     public function getConfigLogin()
     {
-        return $this->config_login;
+        return $this->configLogin;
     }
 
-    public function setConfigLogin($config_login)
+    public function setConfigLogin($configLogin)
     {
-        $this->config_login = $config_login;
+        $this->configLogin = $configLogin;
 
         return $this;
     }
 
-    public function getConfigPassword()
-    {
-        return $this->config_password;
+    public function getConfigPassword(){
+        return $this->configPassword;
     }
 
-    public function setConfigPassword($config_password)
+    public function setConfigPassword($configPassword)
     {
-        $this->config_password = $config_password;
+        $this->configPassword = $configPassword;
 
         return $this;
     }
 
     public function getConfigIp()
     {
-        return $this->config_ip;
+        return $this->configIp;
     }
 
-    public function setConfigIp($config_ip)
+    public function setConfigIp($configIp)
     {
-        $this->config_ip = $config_ip;
+        $this->configIp = $configIp;
 
         return $this;
     }
 
     public function getConfigSalt()
     {
-        return $this->config_salt;
+        return $this->configSalt;
     }
 
-    public function setConfigSalt($config_salt)
+    public function setConfigSalt($configSalt)
     {
-        $this->config_salt = $config_salt;
+        $this->configSalt = $configSalt;
 
         return $this;
     }
 
     public function getConfigPort()
     {
-        return $this->config_port;
+        return $this->configPort;
     }
 
-    public function setConfigPort($config_port)
+    public function setConfigPort($configPort)
     {
-        $this->config_port = $config_port;
+        $this->configPort = $configPort;
 
         return $this;
     }
