@@ -2,7 +2,7 @@ Graille-Labs - Screeper Project - Server bundle
 =====================
 **DEVELOPMENT IN PROGRESS**
 
-![Screeper logo](http://img4.hostingpics.net/pics/743708Sanstitre7.png)
+![Screeper](http://img4.hostingpics.net/pics/8388841405135647.png)
 
 The Server bundle add support of Minecraft Server in symfony 2.
 
