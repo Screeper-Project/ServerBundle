@@ -3,23 +3,126 @@ namespace Screeper\ServerBundle\Entity;
 
 class Server
 {
+    protected $key = '';
     protected $name = '';
 
-    protected $configLogin = '';
+    protected $login = '';
+    protected $pwd = '';
+    protected $ip = '';
+    protected $salt = '';
+    protected $port = '';
 
-    protected $configPassword = '';
+    protected $attributes = array();
 
-    protected $configIp = '';
-
-    protected $configSalt = '';
-
-    protected $configPort = '';
-
-    public function getName()
+    /**
+     * @param $attribute
+     * @return $this
+     */
+    public function addAttribute($attribute)
     {
-        return $this->name;
+        $this->attributes[] = $attribute;
+
+        return $this;
+    }
+    /**
+     * @param $attributes
+     * @return $this
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param $ip
+     * @return $this
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param $salt
+     * @return $this
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param $pwd
+     * @return $this
+     */
+    public function setPwd($pwd)
+    {
+        $this->pwd = $pwd;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPwd()
+    {
+        return $this->pwd;
+    }
+
+    /**
+     * @param $port
+     * @return $this
+     */
+    public function setPort($port)
+    {
+        $this->port = $port;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -27,62 +130,49 @@ class Server
         return $this;
     }
 
-    public function getConfigLogin()
+    /**
+     * @return string
+     */
+    public function getName()
     {
-        return $this->configLogin;
+        return $this->name;
     }
 
-    public function setConfigLogin($configLogin)
+    /**
+     * @param $login
+     * @return $this
+     */
+    public function setLogin($login)
     {
-        $this->configLogin = $configLogin;
+        $this->login = $login;
 
         return $this;
     }
 
-    public function getConfigPassword(){
-        return $this->configPassword;
+    /**
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
     }
 
-    public function setConfigPassword($configPassword)
+    /**
+     * @param $key
+     * @return $this
+     */
+    public function setKey($key)
     {
-        $this->configPassword = $configPassword;
+        $this->key = $key;
 
         return $this;
     }
 
-    public function getConfigIp()
+    /**
+     * @return string
+     */
+    public function getKey()
     {
-        return $this->configIp;
-    }
-
-    public function setConfigIp($configIp)
-    {
-        $this->configIp = $configIp;
-
-        return $this;
-    }
-
-    public function getConfigSalt()
-    {
-        return $this->configSalt;
-    }
-
-    public function setConfigSalt($configSalt)
-    {
-        $this->configSalt = $configSalt;
-
-        return $this;
-    }
-
-    public function getConfigPort()
-    {
-        return $this->configPort;
-    }
-
-    public function setConfigPort($configPort)
-    {
-        $this->configPort = $configPort;
-
-        return $this;
+        return $this->key;
     }
 }

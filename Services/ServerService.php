@@ -19,7 +19,7 @@ class ServerService
 
     // Constantes
     const SERVERS_PARAMETER_NAME = 'screeper.server.parameters.servers';
-    const DEFAULT_SERVER_NAME = 'default';
+    const DEFAULT_SERVER_KEY = 'default';
 
     public function __construct(ContainerInterface $container)
     {
@@ -30,9 +30,27 @@ class ServerService
      * Récupération des serveurs
      * @return mixed
      */
-    protected function getServers()
+    protected function getServersAsArray()
     {
-        return $this->container->getParameter(ServerService::SERVERS_PARAMETER_NAME);
+        return $this->container->getParameter(self::SERVERS_PARAMETER_NAME);
+    }
+
+    /**
+     * @return array
+     */
+    public function getServersKey()
+    {
+        return array_keys($this->getServersAsArray());
+    }
+
+    /**
+     * Retourne les attributs d'un serveur
+     * @param $key
+     * @return array
+     */
+    public function getServerAttributes($key)
+    {
+        return $this->getServer($key)->getAttributes();
     }
 
     /**
@@ -40,51 +58,75 @@ class ServerService
      */
     public function getServersName()
     {
-        return array_keys($this->getServers());
+        $keys = array_keys($this->getServersAsArray());
+        $servers = array();
+
+        foreach($keys as $key)
+            $servers[$key] = $this->getServer($key)->getName();
+
+        return $servers;
     }
 
     /**
-     * @param $server
-     * @param $servers_list
-     * @throws \InvalidArgumentException
+     * @return array
      */
-    protected function checkConfig($server, $servers_list)
+    public function getServers()
     {
-        if (!isset($servers_list[$server]))
-            throw new \InvalidArgumentException('Screeper - ServerBundle - le serveur "'.$server.'" ne possède aucune configuration dans app/config/config.yml');
+        $keys = array_keys($this->getServersAsArray());
+        $servers = array();
+
+        foreach($keys as $key)
+            $servers[$key] = $this->getServer($key);
+
+        return $servers;
     }
 
     /**
-     * @param $server_name
-     * @return Server
+     * @param $server_key
+     * @param array $servers_list
      * @throws \InvalidArgumentException
      */
-    protected function getConfig($server_name = ServerService::DEFAULT_SERVER_NAME) // Récupération de la configuration d'un serveur
+    protected function checkKey($server_key, $servers_list = array())
     {
-        $servers_list = $this->getServers();
+        if($servers_list == array())
+            $servers_list = $this->getServersAsArray();
 
-        $this->checkConfig($server_name, $servers_list);
+        if (!isset($servers_list[$server_key]))
+            throw new \InvalidArgumentException('Screeper - ServerBundle - le serveur "'.$server_key.'" ne possède aucune configuration dans app/config/config.yml');
+    }
 
-        $server_config = $servers_list[$server_name];
+    /**
+     * @param string $server_key
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    protected function getConfig($server_key = self::DEFAULT_SERVER_KEY) // Récupération de la configuration d'un serveur
+    {
+        $servers_list = $this->getServersAsArray();
 
-        if (!isset($server_config['login']) or !isset($server_config['password']) or !isset($server_config['ip']))
-            if (isset($server_config['pattern'])) { // Si c'est un pattern
-                $this->checkConfig($server_config['pattern'], $servers_list);
-                $config = $this->getConfig($server_config['pattern']);
+        $this->checkKey($server_key, $servers_list);
+        $server_config = $servers_list[$server_key];
+        $server_pattern = array();
 
-                foreach($server_config as $key => $sub_config) // On écrase les configurations copié par celles de l'utilisateur
-                    $config[$key] = $server_config;
+        if (isset($servers_list[$server_key]['pattern'])) { // Si l'utilisateur à spécifié un pattern
+            $pattern = $servers_list[$server_key]['pattern'];
 
-                $server_config = $config; // Enfin on renvoi la nouvelle config
-            }
-            else
-                throw new \InvalidArgumentException('Screeper - ServerBundle - JsonAPIBundle - le serveur "'.$server_name.'" est mal configuré');
-        else {
-            if(!isset($server_config['port']))
-                $server_config['port'] = 20059;
-            if(!isset($server_config['salt']))
-                $server_config['salt'] = "";
+            $this->checkKey($pattern, $servers_list); // On vérifie que la key du pattern existe
+            $server_pattern = $this->getConfig($pattern);
         }
+
+        foreach($server_pattern as $key => $value)
+            if(!isset($server_config[$key]) && $key != 'attributes') // Les attributs ne se passent pas d'un serveur à un autre
+                $server_config[$key] = $server_pattern[$key];
+
+        if (!isset($server_config['login']) || !isset($server_config['password']) || !isset($server_config['ip']))
+            throw new \InvalidArgumentException('Screeper - ServerBundle - JsonAPIBundle - le serveur "'.$server_key.'" est mal configuré');
+
+        if(!isset($server_config['port'])) $server_config['port'] = 20059;
+        if(!isset($server_config['salt'])) $server_config['salt'] = "";
+        if(!isset($server_config['name'])) $server_config['name'] = 'Serveur Minecraft';
+        if(!isset($server_config['key'])) $server_config['key'] = $server_key;
+        if(!isset($server_config['attributes'])) $server_config['attributes'] = array();
 
         return $server_config;
     }
@@ -97,20 +139,24 @@ class ServerService
     {
         // Création de l'objet serveur
         $server = new Server();
-        $server->setConfigIp($server_config['ip'])
-            ->setConfigLogin($server_config['login'])
-            ->setConfigPassword($server_config['password'])
-            ->setConfigPort($server_config['port'])
-            ->setConfigSalt($server_config['salt']);
+        $server->setKey($server_config['key'])
+            ->setName($server_config['name'])
+            ->setIp($server_config['ip'])
+            ->setLogin($server_config['login'])
+            ->setPwd($server_config['password'])
+            ->setPort($server_config['port'])
+            ->setSalt($server_config['salt'])
+            ->setAttributes($server_config['attributes']);
 
         return $server;
     }
+
     /**
-     * @param $server_name
+     * @param string $server_key
      * @return Server
      */
-    public function getServer($server_name = ServerService::DEFAULT_SERVER_NAME)
+    public function getServer($server_key = self::DEFAULT_SERVER_KEY)
     {
-        return $this->convertToServer($this->getConfig($server_name));
+        return $this->convertToServer($this->getConfig($server_key));
     }
 }
