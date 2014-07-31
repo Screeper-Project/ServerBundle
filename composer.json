@@ -1,5 +1,5 @@
 {
-    "name": "graille-labs/screeper-server-bundle",
+    "name": "screeper-project/server-bundle",
     "type": "symfony-bundle",
     "description": "Minecraft Server support in Symfony 2",
     "keywords": ["minecraft","server management"],
@@ -16,7 +16,6 @@
     "require": {
         "php": ">=5.3.0",
         "symfony/framework-bundle": ">=2.1",
-        "twig/twig": "*",
         "doctrine/doctrine-bundle": "*"
     },
     "autoload": {
