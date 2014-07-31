@@ -41,7 +41,6 @@ screeper_server:
             password: #password
             port: #port
             ip: #ip
-            name: # name of the server
 ```
 
 N.B : Port and Salt are optionnal, the port by default is 20059
